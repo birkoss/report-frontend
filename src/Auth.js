@@ -1,20 +1,28 @@
+import Cookies from "js-cookie";
+
 class Auth {
     constructor() {
-        this.authenticated = false;
+        this.token = "";
+        const savedCookie = Cookies.get("api_token");
+        if (savedCookie) {
+            this.token = savedCookie;
+        }
     }
 
-    login(callback) {
-        this.authenticated = true;
+    login(token, callback) {
+        this.token = token;
+        Cookies.set("api_token", token);
         callback();
     }
 
     logout(callback) {
-        this.authenticated = false;
+        this.token = "";
+        Cookies.remove("api_token");
         callback();
     }
 
     isAuthenticated() {
-        return this.authenticated;
+        return this.token !== "";
     }
 };
 
