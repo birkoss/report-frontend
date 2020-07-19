@@ -19,9 +19,10 @@ export const DashboardPage = (props) => {
         <div className="dashboard-page">
             <Navbar />
 
-            <div className="container">
+            <div className="main-content container">
                 <div className="row">
                     <div className="col s12">
+                        <h1 className="main-title">Notifications</h1>
                         <Notifications />
                     </div>
                 </div>
