@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { Navbar } from "../layout/Navbar";
+
 
 const CreateProject = () => {
     const [title, setTitle] = useState("");
@@ -12,6 +14,7 @@ const CreateProject = () => {
 
     return (
         <div className="container">
+            <Navbar />
             <form onSubmit={handleSubmit} className="white">
                 <h5 className="grey-text text-darken-3">Create Project</h5>
                 <div class="input-field">

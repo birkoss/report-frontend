@@ -14,7 +14,7 @@ import "./App.css";
 function App() {
     return (
         <BrowserRouter>
-            <div className="App">
+            <div id="App">
                 <Switch>
                     <Route exact path="/" component={DashboardPage} />
                     <ProtectedRoute path="/project/create" component={CreateProject} />
