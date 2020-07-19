@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from "react-router-dom";
 
-import auth from "../Auth";
+import { UserContext } from "../contexts/User";
 
 export const LogoutPage = (props) => {
-    auth.logout(() => {
-        props.history.push("/");
-    });
-    
+    const { token, setToken } = useContext(UserContext);
+
+    if (token !== "") {
+        setToken("");
+
+        return (
+            <h1>Loading</h1>
+        )
+    }
+
     return (
         <Redirect to="/" />
     )

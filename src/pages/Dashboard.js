@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 
 
 import { Navbar } from "../components/layout/Navbar";
 
-import { LoginPage } from "./LoginPage";
+import { LoginPage } from "./Login";
 import { Notifications } from "../components/dashboard/Notifications";
 import { ProjectList } from "../components/projects/ProjectList";
 
-import auth from "../Auth";
+import { UserContext } from "../contexts/User";
 
 export const DashboardPage = (props) => {
+    const { token, setToken } = useContext(UserContext);
+
     /* Not logged in, show the Login Page instead */
-    if (!auth.isAuthenticated()) {
+    if (token === "") {
         return <LoginPage history={props.history} />;
     }
 
@@ -31,9 +33,7 @@ export const DashboardPage = (props) => {
                     <h1>Dashboard</h1>
                     <button onClick={
                         () => {
-                            auth.logout(() => {
-                                props.history.push("/");
-                            });
+                            setToken("");
                         }
                     }>Logout</button>
                 </div>

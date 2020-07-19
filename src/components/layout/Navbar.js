@@ -1,12 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import auth from "../../Auth";
-
 export const Navbar = (props) => {
-    if (!auth.isAuthenticated()) {
-        return null;
-    }
     return (
         <nav className="nav-wrapper grey darken-3">
             <div className="container">
