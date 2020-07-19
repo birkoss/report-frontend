@@ -4,17 +4,26 @@ import { Redirect } from "react-router-dom";
 import SocialButton from '../components/SocialButton';
 
 import auth from "../Auth";
+import api from "../services/Api";
 
-const handleSocialLogin = (user) => {
-    console.log(user);
+export const LoginPage = (props) => {
+  const handleSocialLogin = (user) => {
+    api.post("oauth/login/", {
+        provider: (user._provider === "facebook" ? "facebook" : "google-oauth2"),
+        access_token: user._token.accessToken,
+    })
+    .then((response) => {
+        auth.login(response.token, () => {
+            props.history.push("/");
+        });
+    })
   }
   
   const handleSocialLoginFailure = (err) => {
     console.log(err);
   }
 
-export const LoginPage = (props) => {
-    if (auth.isAuthenticated()) {
+  if (auth.isAuthenticated()) {
         return (
             <Redirect to={
                 {
