@@ -1,6 +1,11 @@
 class Api {
     constructor() {
         this.url = "http://localhost:8000/";
+        this.token = "";
+    }
+
+    setToken(token) {
+        this.token = token;
     }
 
     get(endpoint) {
@@ -15,9 +20,9 @@ class Api {
         return new Promise((resolve, reject) => {
 
             let headers = new Headers();
-            /*if (token !== "") {
-                headers.append("Authorization", "Token " + token);
-            }*/
+            if (this.token !== "") {
+                headers.append("Authorization", "Token " + this.token);
+            }
             headers.append("Content-Type", "application/json");
         
             let request = new Request(this.url + endpoint, {

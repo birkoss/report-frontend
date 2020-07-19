@@ -8,7 +8,6 @@ export default ({children}) => {
     const savedToken = Cookies.get("user_token") || "";
     const savedData = JSON.parse(Cookies.get("user_data") || "{}") || {};
 
-    console.log("SavedToken: (" + savedToken + ")");
     const [token, setToken] = useState(savedToken);
     const [data, setData] = useState(savedData);
 
@@ -24,8 +23,6 @@ export default ({children}) => {
         Cookies.set("user_token", token);
         Cookies.set("user_data", JSON.stringify(data));
     }, [token, data]);
-
-    console.log("UserContext: (" + token + ")", defaultContext);
 
     return (
         <UserContext.Provider value={defaultContext}>

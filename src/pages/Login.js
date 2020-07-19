@@ -15,10 +15,11 @@ export const LoginPage = () => {
 
     const fetchUserToken = (provider, access_token) => {
         console.log(provider, access_token);
-        api.post("oauth/login/", {
+        api.post("social/login/", {
             provider,
             access_token,
         }).then((response) => {
+            api.setToken(response.token);
             setToken(response.token);
         });
     }
@@ -44,7 +45,7 @@ export const LoginPage = () => {
 
     return (
         <div className="login-page">
-            <div class="box">
+            <div className="box">
                 <h1 className="text-center">Login</h1>
                 <div className="text-center social-btn">
                     <GoogleLogin
