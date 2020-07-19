@@ -1,16 +1,14 @@
 import React, { useContext } from "react";
 
+import { LoginPage } from "./Login";
 
 import { Navbar } from "../components/layout/Navbar";
-
-import { LoginPage } from "./Login";
-import { Notifications } from "../components/dashboard/Notifications";
-import { ProjectList } from "../components/projects/ProjectList";
+import { Notifications } from "../components/Notifications";
 
 import { UserContext } from "../contexts/User";
 
 export const DashboardPage = (props) => {
-    const { token, setToken } = useContext(UserContext);
+    const { token } = useContext(UserContext);
 
     /* Not logged in, show the Login Page instead */
     if (token === "") {
@@ -18,27 +16,17 @@ export const DashboardPage = (props) => {
     }
 
     return (
-        <div>
+        <div className="dashboard-page">
             <Navbar />
 
-            <div className="dashboard container">
+            <div className="container">
                 <div className="row">
-                    <div className="col s12 m6">
-                        <ProjectList />
-                    </div>
-                    <div className="col s12 m5 offset-m1">
+                    <div className="col s12">
                         <Notifications />
                     </div>
                 </div>
-                <div className="row">
-                    <h1>Dashboard</h1>
-                    <button onClick={
-                        () => {
-                            setToken("");
-                        }
-                    }>Logout</button>
-                </div>
             </div>
+
         </div>
     );
 }

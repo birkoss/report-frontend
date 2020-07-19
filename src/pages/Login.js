@@ -8,7 +8,9 @@ import { UserContext } from "../contexts/User";
 
 import api from "../services/Api";
 
-export const LoginPage = (props) => {
+import "./Login.css";
+
+export const LoginPage = () => {
     const { token, setToken } = useContext(UserContext);
 
     const fetchUserToken = (provider, access_token) => {
