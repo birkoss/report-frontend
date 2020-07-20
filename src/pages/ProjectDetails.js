@@ -41,7 +41,7 @@ export const ProjectDetails = (props) => {
                     <div className="main-action-bar">
                         <h1 className="main-title">{project['name']}</h1>
                         <div className="main-action">
-                            <NavLink to={"/projects/" + project['id'] + "/logs/create"} className="btn btn-primary">New Log</NavLink>
+                            <NavLink to={"/project/" + project['id'] + "/logs/create"} className="btn btn-primary">New Log</NavLink>
                         </div>
                     </div>
 

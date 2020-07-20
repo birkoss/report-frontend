@@ -67,7 +67,7 @@ export const CreateLogPage = (props) => {
 
                         <div className="form-actions">
                             <button type="submit" className="btn btn-primary">Create</button>
-                            <NavLink to={"/projects/" + project['id']} className="btn btn-secondary">Back</NavLink>
+                            <NavLink to={"/project/" + project['id']} className="btn btn-secondary">Back</NavLink>
                         </div>
                     </form>
                 </div>

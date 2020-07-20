@@ -46,8 +46,8 @@ function App() {
                     <Route exact path="/" component={DashboardPage} />
                     <ProtectedRoute exact path="/projects" component={ProjectsPage} />
                     <ProtectedRoute exact path="/projects/create" component={CreateProject} />
-                    <ProtectedRoute exact path="/projects/:id/edit" component={CreateProject} />
-                    <ProtectedRoute exact path="/projects/:id/logs/create" component={CreateLogPage} />
+                    <ProtectedRoute exact path="/project/:id/edit" component={CreateProject} />
+                    <ProtectedRoute exact path="/project/:id/logs/create" component={CreateLogPage} />
                     <ProtectedRoute exact path="/project/:id" component={ProjectDetails} />
                     <Route path="*" component={() => "404 NOT FOUND"} />
                 </Switch>
