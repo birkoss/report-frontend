@@ -6,6 +6,7 @@ import { Navbar } from "../components/layout/Navbar";
 import { Input } from "../components/layout/Input";
 
 import api from "../services/Api";
+import { NavLink } from "react-router-dom";
 
 
 export const CreateProject = (props) => {
@@ -23,8 +24,10 @@ export const CreateProject = (props) => {
             <Navbar />
 
             <div className="main-content container">
+
+                <h1 className="main-title">Create Project</h1>
+
                 <form onSubmit={handleSubmit(onFormSubmit)} className="white">
-                    <h1 className="main-title">Create Project</h1>
 
                     <Input
                         label="Project Name"
@@ -42,7 +45,10 @@ export const CreateProject = (props) => {
                         }
                     />
 
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <div className="form-actions">
+                        <button type="submit" className="btn btn-primary">Create</button>
+                        <NavLink to="/projects/" className="btn btn-secondary">Back</NavLink>
+                    </div>
                 </form>
             </div>
         </div>

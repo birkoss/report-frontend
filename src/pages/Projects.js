@@ -4,6 +4,7 @@ import { Navbar } from "../components/layout/Navbar";
 import { ProjectSummary } from "../components/projects/ProjectSummary";
 
 import api from "../services/Api";
+import { NavLink } from "react-router-dom";
 
 
 export const ProjectsPage = (props) => {
@@ -16,7 +17,7 @@ export const ProjectsPage = (props) => {
                 setProjects(response['projects']);
             }
         });
-    });
+    }, []);
 
     const deleteProject = (ev) => {
         ev.preventDefault();
@@ -33,7 +34,12 @@ export const ProjectsPage = (props) => {
             <Navbar />
 
             <div className="container main-content">
-                <h1 className="main-title">Projects</h1>
+                <div className="main-action-bar">
+                    <h1 className="main-title">Projects</h1>
+                    <div className="main-action">
+                        <NavLink to="/projects/create/" className="btn btn-primary">New Project</NavLink>
+                    </div>
+                </div>
 
                 {projects.map((project) => (
                     <ProjectSummary

@@ -23,13 +23,10 @@ export const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/projects/create">New Project</NavLink>
+                            <NavLink className="nav-link" to="/projects">Projects</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/projects">Projects</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/">Settings</a>
+                            <NavLink className="nav-link" to="/settings">Settings</NavLink>
                         </li>
                         <li className="nav-item"><button onClick={logout} className="nav-link btn btn-link">Logout</button></li>
                     </ul>
