@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { UserContext } from "../../contexts/User";
 import api from "../../services/Api";
@@ -23,15 +23,15 @@ export const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/project/create">New Project</NavLink>
+                            <NavLink className="nav-link" to="/projects/create">New Project</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Projects</a>
+                            <a className="nav-link" href="/projects">Projects</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Settings</a>
+                            <a className="nav-link" href="/">Settings</a>
                         </li>
-                        <li className="nav-item"><Link onClick={logout} className="nav-link" to="#">Logout</Link></li>
+                        <li className="nav-item"><button onClick={logout} className="nav-link btn btn-link">Logout</button></li>
                     </ul>
                 </div>
             </div>

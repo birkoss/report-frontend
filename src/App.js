@@ -5,7 +5,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import { DashboardPage } from "./pages/Dashboard";
 import { CreateProject } from "./pages/CreateProject";
-import { ProjectDetails } from "./components/projects/ProjectDetails";
+import { ProjectDetails } from "./pages/ProjectDetails";
+import { ProjectsPage } from "./pages/Projects";
 
 import { Loading } from "./components/layout/Loading";
 
@@ -29,7 +30,7 @@ function App() {
                 }
             });
         }
-    }, []);
+    });
 
     if (isLoading) {
         return (
@@ -42,7 +43,9 @@ function App() {
             <div id="App">
                 <Switch>
                     <Route exact path="/" component={DashboardPage} />
-                    <ProtectedRoute path="/project/create" component={CreateProject} />
+                    <ProtectedRoute exact path="/projects" component={ProjectsPage} />
+                    <ProtectedRoute exact path="/projects/create" component={CreateProject} />
+                    <ProtectedRoute exact path="/projects/:id/edit" component={CreateProject} />
                     <ProtectedRoute path="/project/:id" component={ProjectDetails} />
                     <Route path="*" component={() => "404 NOT FOUND"} />
                 </Switch>

@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { useForm } from "react-hook-form";
 
 import { Navbar } from "../components/layout/Navbar";
+import { Input } from "../components/layout/Input";
+
+import api from "../services/Api";
 
 
-export const CreateProject = () => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+export const CreateProject = (props) => {
+    const { register, handleSubmit, errors } = useForm();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("OK", title, content);
+    const onFormSubmit = (data) => {
+        api.post("projects", data)
+        .then((response) => {
+            props.history.push("/project/" + response['project']['id'])
+        });
     };
 
     return (
@@ -17,13 +23,24 @@ export const CreateProject = () => {
             <Navbar />
 
             <div className="main-content container">
-                <form onSubmit={handleSubmit} className="white">
-                    <h1>Create Project</h1>
+                <form onSubmit={handleSubmit(onFormSubmit)} className="white">
+                    <h1 className="main-title">Create Project</h1>
 
-                    <div className="form-group">
-                        <label htmlFor="title">Project Name</label>
-                        <input type="text" className="form-control" id="title" placeholder="Please enter a valid email name" />
-                    </div>
+                    <Input
+                        label="Project Name"
+                        error={errors.name}
+                        placeholder="Please enter the name of the project"
+                        name="name"
+                        register={
+                            register({
+                                required: 'Project Name is required',
+                                minLength: {
+                                    value: 5,
+                                    message: 'Minimum length is 5',
+                                },
+                            })
+                        }
+                    />
 
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

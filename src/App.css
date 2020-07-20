@@ -6,6 +6,24 @@ body {
     background-color: #f5f5f5;
 }
 
+.btn.btn-link.card-link {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.btn.btn-link.card-link:focus {
+    box-shadow: none;
+}
+
+.btn.btn-link.card-link:hover, .btn.btn-link.card-link:focus {
+    color: #4aa48a;
+}
+
+.btn.btn-link.card-link.text-danger:hover, .btn.btn-link.card-link.text-danger:focus {
+    color: #ff3d05 !important;
+}
+
 /* Main Content */
 
 .main-content {

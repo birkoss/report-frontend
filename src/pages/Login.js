@@ -14,7 +14,6 @@ export const LoginPage = () => {
     const { token, setToken } = useContext(UserContext);
 
     const fetchUserToken = (provider, access_token) => {
-        console.log(provider, access_token);
         api.post("social/login/", {
             provider,
             access_token,
@@ -25,7 +24,6 @@ export const LoginPage = () => {
     }
 
     const responseGoogle = (response) => {
-        console.log(response);
         if (response.accessToken) {
             fetchUserToken("google-oauth2", response.accessToken);
         }
@@ -54,14 +52,14 @@ export const LoginPage = () => {
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                         render={
-                            (props) => <a href="#" onClick={props.onClick} disabled={props.disabled} className="btn btn-danger btn-block"><i className="fa fa-google"></i> Login with <b>Google</b></a>
+                            (props) => <button onClick={props.onClick} disabled={props.disabled} className="btn btn-danger btn-block"><i className="fa fa-google"></i> Login with <b>Google</b></button>
                         }
                     />
                     <FacebookLogin
                         appId="330327641460055"
                         fields="name,email,picture"
                         render={
-                            (props) => <a href="#" onClick={props.onClick} disabled={props.isDisabled} className="btn btn-info btn-block"><i className="fa fa-facebook"></i> Login with <b>Facebook</b></a>
+                            (props) => <button onClick={props.onClick} disabled={props.isDisabled} className="btn btn-info btn-block"><i className="fa fa-facebook"></i> Login with <b>Facebook</b></button>
                         }
                         callback={responseFacebook} />
                 </div>
