@@ -1,0 +1,6 @@
+.loading.loading-fullscreen {
+    height: calc(100% - 58px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

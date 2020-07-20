@@ -26,6 +26,10 @@ body {
 
 /* Main Content */
 
+.page {
+    height: 100%;
+}
+
 .main-content {
     padding: 40px 20px;
 }
@@ -48,4 +52,10 @@ body {
 
 .main-content .form-actions > .btn:not(:first-child) {
     margin-left: 20px;
+}
+
+.tab-content>.active {
+    border: 1px solid #eceeef;
+    background-color: #ffffff;
+    padding: 10px;
 }

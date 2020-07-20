@@ -7,6 +7,7 @@ import { DashboardPage } from "./pages/Dashboard";
 import { CreateProject } from "./pages/CreateProject";
 import { ProjectDetails } from "./pages/ProjectDetails";
 import { ProjectsPage } from "./pages/Projects";
+import { CreateLogPage } from "./pages/logs/Create";
 
 import { Loading } from "./components/layout/Loading";
 
@@ -46,7 +47,8 @@ function App() {
                     <ProtectedRoute exact path="/projects" component={ProjectsPage} />
                     <ProtectedRoute exact path="/projects/create" component={CreateProject} />
                     <ProtectedRoute exact path="/projects/:id/edit" component={CreateProject} />
-                    <ProtectedRoute path="/project/:id" component={ProjectDetails} />
+                    <ProtectedRoute exact path="/projects/:id/logs/create" component={CreateLogPage} />
+                    <ProtectedRoute exact path="/project/:id" component={ProjectDetails} />
                     <Route path="*" component={() => "404 NOT FOUND"} />
                 </Switch>
             </div>
