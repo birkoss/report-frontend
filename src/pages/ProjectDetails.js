@@ -5,6 +5,7 @@ import { Loading } from "../components/layout/Loading";
 
 import api from "../services/Api";
 import { NavLink } from "react-router-dom";
+import { ProjectSummary } from "../components/projects/ProjectSummary";
 
 
 export const ProjectDetails = (props) => {
@@ -45,6 +46,7 @@ export const ProjectDetails = (props) => {
                         </div>
                     </div>
 
+                    <ProjectSummary project={project} />
 
                     <div className="card z-depth-0">
                         <div className="card-content">

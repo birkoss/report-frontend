@@ -1,16 +1,48 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const ProjectSummary = ({project, onEditClicked, onDeleteClicked}) => {
     const projectUrl = "/project/" + project['id'];
+    const logUrl = "/project/" + project['id'] + "/logs/create";
     
     return (
         <div className="card border-primary mb-3">
-            <div className="card-header">{ project['name'] }</div>
+            <div className="main-action-bar card-header">
+                <h2 className="main-title">{ project['name'] }</h2>
+                <div className="main-action">
+                    <NavLink to={logUrl} className="btn btn-outline-secondary">New Log</NavLink>
+                </div>
+            </div>
+
             <div className="card-body">
-                <h4 className="card-title">Notifications</h4>
-                <p className="card-text">0 Notification(s), 2 Warning(s) and 1 error(s)</p>
+
+                {project['logs'].length === 0 && (
+                  <p>Nothing to see here</p>
+                )}
+
+                {project['logs'].length > 0 && (
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Normal</th>
+                        <th scope="col">Warning</th>
+                        <th scope="col">Alert</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {project['logs'].map((single_log) => (
+                        <tr>
+                          <td>{single_log['name']}</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table> 
+                )}
 
                 <Link className="card-link" to={projectUrl}><button className="btn btn-link card-link">See</button></Link>
                 <button onClick={onEditClicked} className="btn btn-link card-link">Edit</button>

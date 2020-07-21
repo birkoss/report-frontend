@@ -46,8 +46,15 @@ body {
     align-items: center;
 }
 
+.main-content .main-action-bar.card-header {
+    padding-bottom: 0.75em;
+}
+
 .main-content .main-action-bar h1.main-title {
     padding-bottom: 0;
+}
+.main-content .main-action-bar.card-header .main-title {
+    margin-bottom: 0;
 }
 
 .main-content .form-actions > .btn:not(:first-child) {
