@@ -35,34 +35,35 @@ body {
 }
 
 .main-content h1.main-title {
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .main-content .main-action-bar {
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
 }
 
-.main-content .main-action-bar.card-header {
-    padding-bottom: 0.75em;
-}
-
 .main-content .main-action-bar h1.main-title {
     padding-bottom: 0;
-}
-.main-content .main-action-bar.card-header .main-title {
-    margin-bottom: 0;
 }
 
 .main-content .form-actions > .btn:not(:first-child) {
     margin-left: 20px;
 }
 
-.tab-content>.active {
-    border: 1px solid #eceeef;
-    background-color: #ffffff;
-    padding: 10px;
+/* Table */
+
+.card > .table {
+    margin-bottom: 0;
+}
+
+.table .actions > *:not(:first-child) {
+    margin-left: 12px;
+}
+
+.breadcrumb {
+    margin-bottom: 40px;
 }

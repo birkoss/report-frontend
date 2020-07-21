@@ -25,7 +25,7 @@ export const CreateLogPage = (props) => {
                 props.history.push("/");
             }
         });
-    }, []);
+    }, [props]);
 
     const onFormSubmit = (data) => {
         api.post("projects/" + project['id'] + "/logs", data)

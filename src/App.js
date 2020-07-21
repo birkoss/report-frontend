@@ -5,7 +5,6 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import { DashboardPage } from "./pages/Dashboard";
 import { CreateProject } from "./pages/CreateProject";
-import { ProjectDetails } from "./pages/ProjectDetails";
 import { ProjectsPage } from "./pages/Projects";
 import { CreateLogPage } from "./pages/logs/Create";
 
@@ -16,6 +15,8 @@ import api from "./services/Api";
 import { UserContext } from "./contexts/User";
 
 import "./App.css";
+import { ProjectSinglePage } from "./pages/projects/Single";
+import { LogArchivePage } from "./pages/logs/Archive";
 
 
 function App() {
@@ -48,7 +49,8 @@ function App() {
                     <ProtectedRoute exact path="/projects/create" component={CreateProject} />
                     <ProtectedRoute exact path="/project/:id/edit" component={CreateProject} />
                     <ProtectedRoute exact path="/project/:id/logs/create" component={CreateLogPage} />
-                    <ProtectedRoute exact path="/project/:id" component={ProjectDetails} />
+                    <ProtectedRoute exact path="/project/:id" component={ProjectSinglePage} />
+                    <ProtectedRoute exact path="/log/:id" component={LogArchivePage} />
                     <Route path="*" component={() => "404 NOT FOUND"} />
                 </Switch>
             </div>

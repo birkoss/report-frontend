@@ -25,6 +25,12 @@ export const CreateProject = (props) => {
 
             <div className="main-content container">
 
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><NavLink to="/">Dashboard</NavLink></li>
+                    <li class="breadcrumb-item"><NavLink to="/projects">Projects</NavLink></li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ol>
+
                 <h1 className="main-title">Create Project</h1>
 
                 <form onSubmit={handleSubmit(onFormSubmit)} className="white">
