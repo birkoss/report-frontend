@@ -8,7 +8,6 @@ import { DashboardPage } from "./pages/Dashboard";
 import { CreateFolderPage } from "./pages/folders/Create";
 import { FolderArchivePage } from "./pages/folders/Archive";
 
-import { CreateProjectPage } from "./pages/projects/Create";
 import { ProjectSinglePage } from "./pages/projects/Single";
 import { ProjectArchivePage } from "./pages/projects/Archive";
 
@@ -49,8 +48,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={DashboardPage} />
                     <ProtectedRoute exact path="/projects" component={ProjectArchivePage} />
-                    <ProtectedRoute exact path="/projects/create" component={CreateProjectPage} />
-                    <ProtectedRoute exact path="/projects/:id/edit" component={CreateProjectPage} />
+                    <ProtectedRoute exact path="/projects/:id/edit" component={DashboardPage} />
                     <ProtectedRoute exact path="/projects/:id/folders/create" component={CreateFolderPage} />
                     <ProtectedRoute exact path="/projects/:id" component={ProjectSinglePage} />
                     <ProtectedRoute exact path="/folders/:id" component={FolderArchivePage} />
