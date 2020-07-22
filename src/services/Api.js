@@ -16,6 +16,10 @@ class Api {
         return this.query(endpoint, "POST", data);
     }
 
+    put(endpoint, data) {
+        return this.query(endpoint, "PUT", data);
+    }
+
     delete(endpoint) {
         return this.query(endpoint, "DELETE");
     }

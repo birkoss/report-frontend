@@ -1,28 +1,39 @@
 import React from "react";
 
 import { useForm } from "react-hook-form";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import { Input } from "../../../components/layout/Input";
 
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import api from "../../../services/Api";
 
+export const EditProjectModal = ({isOpen, project, toggle, onSaved}) => {
+    const { register, handleSubmit, errors, setValue } = useForm();
 
-export const CreateProjectModal = ({isOpen, toggle, onCreated}) => {
-    const { register, handleSubmit, errors } = useForm();
+    const onModalOpened = () => {
+        setValue("name", (project === null ? "" : project.name));
+    }
 
     const onFormSubmit = (data) => {
-        api.post("projects", data)
-        .then((response) => {
-            onCreated();
-            toggle()
-        });
+        if (project === null) {
+            api.post("projects", data)
+            .then((response) => {
+                onSaved();
+                toggle()
+            });
+        } else {
+            api.put("projects/" + project.id, data)
+            .then((response) => {
+                onSaved();
+                toggle()
+            });
+        }
     };
 
     return (
-        <Modal autoFocus={true} isOpen={isOpen} toggle={toggle}>
-            <ModalHeader toggle={toggle}>Create Project</ModalHeader>
+        <Modal onOpened={onModalOpened} autoFocus={true} isOpen={isOpen} toggle={toggle}>
+            <ModalHeader toggle={toggle}>{project === null ? "Create Project" : "Edit Project"}</ModalHeader>
             <ModalBody>
                 <form onSubmit={handleSubmit(onFormSubmit)} className="white">
                     <Input
@@ -43,7 +54,7 @@ export const CreateProjectModal = ({isOpen, toggle, onCreated}) => {
                 </form>
             </ModalBody>
             <ModalFooter>
-                <button onClick={handleSubmit(onFormSubmit)} type="button" className="btn btn-primary">Create</button>
+                <button onClick={handleSubmit(onFormSubmit)} type="button" className="btn btn-primary">{project === null ? "Create" : "Save"}</button>
                 <button onClick={toggle} type="button" className="btn btn-secondary">Close</button>
             </ModalFooter>
         </Modal>
