@@ -85,8 +85,7 @@ export const ProjectArchivePage = (props) => {
                             <thead>
                                 <tr>
                                 <th scope="col">Project Name</th>
-                                <th scope="col">Column heading</th>
-                                <th scope="col">Column heading</th>
+                                <th scope="col">Total Folders</th>
                                 <th scope="col">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -94,8 +93,7 @@ export const ProjectArchivePage = (props) => {
                                 {projects.map((project) => (
                                     <tr key={project.id}>
                                         <td><NavLink to={"/projects/" + project.id}>{project.name}</NavLink></td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
+                                        <td>{project.folders.length}</td>
                                         <td className="actions">
                                             <button
                                                 className="btn btn-link"
