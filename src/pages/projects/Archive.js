@@ -7,12 +7,14 @@ import { Navbar } from "../../components/layout/Navbar";
 
 import api from "../../services/Api";
 import { CreateProjectModal } from "./modals/Create";
+import { ConfirmationModal } from "../../components/layout/modals/Confirmation";
 
 export const ProjectArchivePage = (props) => {
     const [projects, setProjects] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [createProjectModalVisible, setCreateProjectModalVisible] = useState(false);
+    const [deleteProjectModalVisible, setDeleteProjectModalVisible] = useState(false);
 
-    const toggleModalVisible = () => setModalVisible(!modalVisible);
+    const [highlightedProjects, setHighlightedProjects] = useState([]);
 
     const getProjects = () => {
         api.get("projects")
@@ -20,6 +22,18 @@ export const ProjectArchivePage = (props) => {
             if (response['status'] === 200) {
                 setProjects(response['projects']);
             }
+        });
+    }
+
+    const deleteProject = () => {
+        highlightedProjects.forEach((single_project) => {
+            api.delete("projects/" + single_project.id)
+            .then((response) => {
+                if (response['status'] === 200) {
+                    setHighlightedProjects([]);
+                    getProjects();
+                }
+            });
         });
     }
 
@@ -48,12 +62,11 @@ export const ProjectArchivePage = (props) => {
                 <div className="main-action-bar">
                     <h1 className="main-title">Projects</h1>
                     <div className="main-action">
-                        {/* <NavLink to="/projects/create/" className="btn btn-primary">New Project</NavLink> */}
                         <button
                             type="button"
                             className="btn btn-primary"
                             onClick={
-                                () => setModalVisible(true)
+                                () => setCreateProjectModalVisible(true)
                             }
                         >New Project</button>
                     </div>
@@ -80,7 +93,20 @@ export const ProjectArchivePage = (props) => {
                                         <td><NavLink to={"/projects/" + project.id}>{project.name}</NavLink></td>
                                         <td>Column content</td>
                                         <td>Column content</td>
-                                        <td className="actions"><NavLink to="/">Edit</NavLink><NavLink className="text-danger" to="/">Delete</NavLink></td>
+                                        <td className="actions">
+                                            <NavLink to="/">Edit</NavLink>
+                                            <button
+                                                className="btn btn-link text-danger"
+                                                onClick={
+                                                    () => {
+                                                        setHighlightedProjects([
+                                                            project
+                                                        ])
+                                                        setDeleteProjectModalVisible(true)
+                                                    }
+                                                }
+                                            >Delete</button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -91,11 +117,25 @@ export const ProjectArchivePage = (props) => {
             </div>
 
             <CreateProjectModal
-                toggle={toggleModalVisible}
-                isOpen={modalVisible}
+                toggle={
+                    () => setCreateProjectModalVisible(!createProjectModalVisible)
+                }
+                isOpen={createProjectModalVisible}
                 onCreated={
                     () => getProjects()
                 }
+            />
+
+            <ConfirmationModal
+                isOpen={deleteProjectModalVisible}
+                toggle={
+                    () => setDeleteProjectModalVisible(!deleteProjectModalVisible)
+                }
+                content={"Are you sure you want to delete the project " + (
+                    highlightedProjects.length > 0 ? highlightedProjects[0]['name'] : ""
+                ) + "?"}
+                button="Delete"
+                onConfirmed={deleteProject}
             />
 
         </div>

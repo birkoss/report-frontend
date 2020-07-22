@@ -16,6 +16,10 @@ class Api {
         return this.query(endpoint, "POST", data);
     }
 
+    delete(endpoint) {
+        return this.query(endpoint, "DELETE");
+    }
+
     query(endpoint, method, data = null) {
         return new Promise((resolve, reject) => {
 
