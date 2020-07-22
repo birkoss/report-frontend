@@ -7,13 +7,19 @@ import api from "../../services/Api";
 import { NavLink } from "react-router-dom";
 import { EmptyList } from "../../components/layout/EmptyList";
 import { Breadcrumb } from "../../components/layout/Breadcrumb";
+import { EditFolderModal } from "../folders/modals/Edit";
+import { ConfirmationModal } from "../../components/layout/modals/Confirmation";
 
 
 
 export const ProjectSinglePage = (props) => {
     const [project, setProject] = useState(null);
+    const [editFolderModalVisible, setEditFolderModalVisible] = useState(false);
+    const [deleteFolderModalVisible, setDeleteFolderModalVisible] = useState(false);
 
-    useEffect(() => {
+    const [highlightedFolder, setHighlightedFolder] = useState(null);
+
+    const getProject = () => {
         const projectID = props.match.params.id;
 
         api.get("projects/" + projectID)
@@ -24,7 +30,21 @@ export const ProjectSinglePage = (props) => {
                 props.history.push("/");
             }
         });
-    }, [props]);
+    }
+
+    const deleteFolder = () => {
+        if (highlightedFolder !== null) {
+            api.delete("folders/" + highlightedFolder.id)
+            .then((response) => {
+                if (response['status'] === 200) {
+                    setHighlightedFolder(null);
+                    getProject();
+                }
+            });
+        }
+    }
+
+    useEffect(getProject, [props]);
 
     return (
         <div className="single-project page">
@@ -56,7 +76,16 @@ export const ProjectSinglePage = (props) => {
                     <div className="main-action-bar">
                         <h1 className="main-title">{project['name']}</h1>
                         <div className="main-action">
-                            <NavLink to={"/projects/" + project['id'] + "/folders/create"} className="btn btn-primary">New Folder</NavLink>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={
+                                    () => {
+                                        setHighlightedFolder(null);
+                                        setEditFolderModalVisible(true);
+                                    }
+                                }
+                            >New Folder</button>
                         </div>
                     </div>
 
@@ -83,13 +112,56 @@ export const ProjectSinglePage = (props) => {
                                             <td>0</td>
                                             <td>0</td>
                                             <td>0</td>
-                                            <td className="actions"><NavLink to="/">Edit</NavLink><NavLink className="text-danger" to="/">Delete</NavLink></td>
+                                            <td className="actions">
+                                                <button
+                                                    className="btn btn-link"
+                                                    onClick={
+                                                        () => {
+                                                            setHighlightedFolder(folder);
+                                                            setEditFolderModalVisible(true);
+                                                        }
+                                                    }
+                                                >Edit</button>
+                                                <button
+                                                    className="btn btn-link text-danger"
+                                                    onClick={
+                                                        () => {
+                                                            setHighlightedFolder(folder);
+                                                            setDeleteFolderModalVisible(true);
+                                                        }
+                                                    }
+                                                >Delete</button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
                     )}
+
+                    <EditFolderModal
+                        folder={highlightedFolder}
+                        project={project}
+                        toggle={
+                            () => setEditFolderModalVisible(!editFolderModalVisible)
+                        }
+                        isOpen={editFolderModalVisible}
+                        onSaved={
+                            () => getProject()
+                        }
+                    />
+
+                    <ConfirmationModal
+                        isOpen={deleteFolderModalVisible}
+                        toggle={
+                            () => setDeleteFolderModalVisible(!deleteFolderModalVisible)
+                        }
+                        content={"Are you sure you want to delete the folder " + (
+                            highlightedFolder !== null ? highlightedFolder.name : ""
+                        ) + "?"}
+                        button="Delete"
+                        onConfirmed={deleteFolder}
+                    />
 
                 </div>
             )}

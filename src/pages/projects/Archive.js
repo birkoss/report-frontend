@@ -42,7 +42,7 @@ export const ProjectArchivePage = (props) => {
     }, []);
 
     return (
-        <div className="single-project">
+        <div className="archive-project">
 
             <Navbar />
 
