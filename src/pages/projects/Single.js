@@ -14,6 +14,7 @@ import { ConfirmationModal } from "../../components/layout/modals/Confirmation";
 
 export const ProjectSinglePage = (props) => {
     const [project, setProject] = useState(null);
+    const [folders, setFolders] = useState([]);
     const [editFolderModalVisible, setEditFolderModalVisible] = useState(false);
     const [deleteFolderModalVisible, setDeleteFolderModalVisible] = useState(false);
 
@@ -22,10 +23,12 @@ export const ProjectSinglePage = (props) => {
     const getProject = () => {
         const projectID = props.match.params.id;
 
-        api.get("projects/" + projectID)
+        api.get("projects/" + projectID + "/folders")
         .then((response) => {
             if (response['status'] === 200) {
+                console.log(response);
                 setProject(response['project']);
+                setFolders(response['folders']);
             } else {
                 props.history.push("/");
             }
@@ -89,11 +92,11 @@ export const ProjectSinglePage = (props) => {
                         </div>
                     </div>
 
-                    {project.folders.length === 0 && (
+                    {folders.length === 0 && (
                         <EmptyList title="No Folder" content="Nothing to see here" />
                     )}
 
-                    {project.folders.length > 0 && (
+                    {folders.length > 0 && (
                         <div className="card">
                             <table className="table table-striped">
                                 <thead>
@@ -106,7 +109,7 @@ export const ProjectSinglePage = (props) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {project.folders.map((folder) => (
+                                    {folders.map((folder) => (
                                         <tr key={folder.id}>
                                             <td><NavLink to={"/folders/" + folder.id}>{folder.name}</NavLink></td>
                                             <td>0</td>

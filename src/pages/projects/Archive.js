@@ -93,7 +93,7 @@ export const ProjectArchivePage = (props) => {
                                 {projects.map((project) => (
                                     <tr key={project.id}>
                                         <td><NavLink to={"/projects/" + project.id}>{project.name}</NavLink></td>
-                                        <td>{project.folders.length}</td>
+                                        <td>XXX</td>
                                         <td className="actions">
                                             <button
                                                 className="btn btn-link"
