@@ -4,9 +4,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import { DashboardPage } from "./pages/Dashboard";
-import { CreateProject } from "./pages/CreateProject";
-import { ProjectsPage } from "./pages/Projects";
-import { CreateLogPage } from "./pages/logs/Create";
+
+import { CreateFolderPage } from "./pages/folders/Create";
+import { FolderArchivePage } from "./pages/folders/Archive";
+
+import { CreateProjectPage } from "./pages/projects/Create";
+import { ProjectSinglePage } from "./pages/projects/Single";
+import { ProjectArchivePage } from "./pages/projects/Archive";
 
 import { Loading } from "./components/layout/Loading";
 
@@ -15,8 +19,7 @@ import api from "./services/Api";
 import { UserContext } from "./contexts/User";
 
 import "./App.css";
-import { ProjectSinglePage } from "./pages/projects/Single";
-import { LogArchivePage } from "./pages/logs/Archive";
+
 
 
 function App() {
@@ -45,12 +48,12 @@ function App() {
             <div id="App">
                 <Switch>
                     <Route exact path="/" component={DashboardPage} />
-                    <ProtectedRoute exact path="/projects" component={ProjectsPage} />
-                    <ProtectedRoute exact path="/projects/create" component={CreateProject} />
-                    <ProtectedRoute exact path="/project/:id/edit" component={CreateProject} />
-                    <ProtectedRoute exact path="/project/:id/logs/create" component={CreateLogPage} />
-                    <ProtectedRoute exact path="/project/:id" component={ProjectSinglePage} />
-                    <ProtectedRoute exact path="/log/:id" component={LogArchivePage} />
+                    <ProtectedRoute exact path="/projects" component={ProjectArchivePage} />
+                    <ProtectedRoute exact path="/projects/create" component={CreateProjectPage} />
+                    <ProtectedRoute exact path="/projects/:id/edit" component={CreateProjectPage} />
+                    <ProtectedRoute exact path="/projects/:id/folders/create" component={CreateFolderPage} />
+                    <ProtectedRoute exact path="/projects/:id" component={ProjectSinglePage} />
+                    <ProtectedRoute exact path="/folders/:id" component={FolderArchivePage} />
                     <Route path="*" component={() => "404 NOT FOUND"} />
                 </Switch>
             </div>

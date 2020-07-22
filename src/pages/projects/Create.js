@@ -1,21 +1,20 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { Navbar } from "../components/layout/Navbar";
-import { Input } from "../components/layout/Input";
+import { Navbar } from "../../components/layout/Navbar";
+import { Input } from "../../components/layout/Input";
 
-import api from "../services/Api";
-import { NavLink } from "react-router-dom";
+import api from "../../services/Api";
 
 
-export const CreateProject = (props) => {
+export const CreateProjectPage = (props) => {
     const { register, handleSubmit, errors } = useForm();
 
     const onFormSubmit = (data) => {
         api.post("projects", data)
         .then((response) => {
-            props.history.push("/project/" + response['project']['id'])
+            props.history.push("/projects/" + response['project']['id'])
         });
     };
 

@@ -48,7 +48,7 @@ export const ProjectSinglePage = (props) => {
                             "name": "Projects",
                         },
                         {
-                            "url": "/project/" + project.id,
+                            "url": "/projects/" + project.id,
                             "name": project.name,
                         }
                     ]} />
@@ -56,20 +56,20 @@ export const ProjectSinglePage = (props) => {
                     <div className="main-action-bar">
                         <h1 className="main-title">{project['name']}</h1>
                         <div className="main-action">
-                            <NavLink to={"/project/" + project['id'] + "/logs/create"} className="btn btn-primary">New Log</NavLink>
+                            <NavLink to={"/projects/" + project['id'] + "/folders/create"} className="btn btn-primary">New Folder</NavLink>
                         </div>
                     </div>
 
-                    {project.logs.length === 0 && (
-                        <EmptyList title="No log" content="Nothing to see here" />
+                    {project.folders.length === 0 && (
+                        <EmptyList title="No Folder" content="Nothing to see here" />
                     )}
 
-                    {project.logs.length > 0 && (
+                    {project.folders.length > 0 && (
                         <div className="card">
                             <table className="table table-striped">
                                 <thead>
                                     <tr>
-                                    <th scope="col">Log Name</th>
+                                    <th scope="col">Folder Name</th>
                                     <th scope="col">Normal</th>
                                     <th scope="col">Warning</th>
                                     <th scope="col">Alert</th>
@@ -77,9 +77,9 @@ export const ProjectSinglePage = (props) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {project.logs.map((log) => (
-                                        <tr key={log.id}>
-                                            <td><NavLink to={"/log/" + log.id}>{log.name}</NavLink></td>
+                                    {project.folders.map((folder) => (
+                                        <tr key={folder.id}>
+                                            <td><NavLink to={"/folders/" + folder.id}>{folder.name}</NavLink></td>
                                             <td>0</td>
                                             <td>0</td>
                                             <td>0</td>

@@ -10,14 +10,12 @@ import api from "../../services/Api";
 import { Loading } from "../../components/layout/Loading";
 
 
-export const CreateLogPage = (props) => {
+export const CreateFolderPage = (props) => {
     const { register, handleSubmit, errors } = useForm();
     const [ project, setProject ] = useState(null);
 
     useEffect(() => {
-        const projectID = props.match.params.id;
-
-        api.get("projects/" + projectID)
+        api.get("projects/" + props.match.params.id)
         .then((response) => {
             if (response['status'] === 200) {
                 setProject(response['project']);
@@ -28,14 +26,14 @@ export const CreateLogPage = (props) => {
     }, [props]);
 
     const onFormSubmit = (data) => {
-        api.post("projects/" + project['id'] + "/logs", data)
+        api.post("projects/" + project['id'] + "/folders", data)
         .then((response) => {
-            props.history.push("/project/" + project['id'])
+            props.history.push("/projects/" + project['id'])
         });
     };
 
     return (
-        <div className="create-log">
+        <div className="create-folder">
             <Navbar />
 
             {project === null && (
@@ -45,18 +43,18 @@ export const CreateLogPage = (props) => {
             {project !== null && (
                 <div className="main-content container">
 
-                    <h1 className="main-title">Create Log</h1>
+                    <h1 className="main-title">Create Folder</h1>
 
                     <form onSubmit={handleSubmit(onFormSubmit)} className="white">
 
                         <Input
-                            label="Log Name"
+                            label="Folder Name"
                             error={errors.name}
                             placeholder="ex. Import Cron Results"
                             name="name"
                             register={
                                 register({
-                                    required: 'Log Name is required',
+                                    required: 'Folder Name is required',
                                     minLength: {
                                         value: 5,
                                         message: 'Minimum length is 5',
@@ -67,7 +65,7 @@ export const CreateLogPage = (props) => {
 
                         <div className="form-actions">
                             <button type="submit" className="btn btn-primary">Create</button>
-                            <NavLink to={"/project/" + project['id']} className="btn btn-secondary">Back</NavLink>
+                            <NavLink to={"/projects/" + project['id']} className="btn btn-secondary">Back</NavLink>
                         </div>
                     </form>
                 </div>
