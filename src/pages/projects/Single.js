@@ -49,125 +49,125 @@ export const ProjectSinglePage = (props) => {
 
     useEffect(getProject, [props]);
 
+    if (project === null) {
+        return (
+            <Loading fullscreen={true} />
+        );
+    }
+
     return (
         <div className="single-project page">
 
             <Navbar />
 
-            {project === null && (
-                <Loading fullscreen={true} />
-            )}
+            <div className="container main-content">
 
-            {project !== null && (
-                <div className="container main-content">
+                <Breadcrumb links={[
+                    {
+                        "url": "/",
+                        "name": "Dashboard",
+                    },
+                    {
+                        "url": "/projects",
+                        "name": "Projects",
+                    },
+                    {
+                        "url": "/projects/" + project.id,
+                        "name": project.name,
+                    }
+                ]} />
 
-                    <Breadcrumb links={[
-                        {
-                            "url": "/",
-                            "name": "Dashboard",
-                        },
-                        {
-                            "url": "/projects",
-                            "name": "Projects",
-                        },
-                        {
-                            "url": "/projects/" + project.id,
-                            "name": project.name,
-                        }
-                    ]} />
-
-                    <div className="main-action-bar">
-                        <h1 className="main-title">{project['name']}</h1>
-                        <div className="main-action">
-                            <button
-                                type="button"
-                                className="btn btn-primary"
-                                onClick={
-                                    () => {
-                                        setHighlightedFolder(null);
-                                        setEditFolderModalVisible(true);
-                                    }
+                <div className="main-action-bar">
+                    <h1 className="main-title">{project['name']}</h1>
+                    <div className="main-action">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={
+                                () => {
+                                    setHighlightedFolder(null);
+                                    setEditFolderModalVisible(true);
                                 }
-                            >New Folder</button>
-                        </div>
+                            }
+                        >New Folder</button>
                     </div>
-
-                    {folders.length === 0 && (
-                        <EmptyList title="No Folder" content="Nothing to see here" />
-                    )}
-
-                    {folders.length > 0 && (
-                        <div className="card">
-                            <table className="table table-striped">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">Folder Name</th>
-                                    <th scope="col">Normal</th>
-                                    <th scope="col">Warning</th>
-                                    <th scope="col">Alert</th>
-                                    <th scope="col">&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {folders.map((folder) => (
-                                        <tr key={folder.id}>
-                                            <td><NavLink to={"/folders/" + folder.id}>{folder.name}</NavLink></td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td className="actions">
-                                                <button
-                                                    className="btn btn-link"
-                                                    onClick={
-                                                        () => {
-                                                            setHighlightedFolder(folder);
-                                                            setEditFolderModalVisible(true);
-                                                        }
-                                                    }
-                                                >Edit</button>
-                                                <button
-                                                    className="btn btn-link text-danger"
-                                                    onClick={
-                                                        () => {
-                                                            setHighlightedFolder(folder);
-                                                            setDeleteFolderModalVisible(true);
-                                                        }
-                                                    }
-                                                >Delete</button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-
-                    <EditFolderModal
-                        folder={highlightedFolder}
-                        project={project}
-                        toggle={
-                            () => setEditFolderModalVisible(!editFolderModalVisible)
-                        }
-                        isOpen={editFolderModalVisible}
-                        onSaved={
-                            () => getProject()
-                        }
-                    />
-
-                    <ConfirmationModal
-                        isOpen={deleteFolderModalVisible}
-                        toggle={
-                            () => setDeleteFolderModalVisible(!deleteFolderModalVisible)
-                        }
-                        content={"Are you sure you want to delete the folder " + (
-                            highlightedFolder !== null ? highlightedFolder.name : ""
-                        ) + "?"}
-                        button="Delete"
-                        onConfirmed={deleteFolder}
-                    />
-
                 </div>
-            )}
+
+                {folders.length === 0 && (
+                    <EmptyList title="No Folder" content="Nothing to see here" />
+                )}
+
+                {folders.length > 0 && (
+                    <div className="card">
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">Folder Name</th>
+                                <th scope="col">Normal</th>
+                                <th scope="col">Warning</th>
+                                <th scope="col">Alert</th>
+                                <th scope="col">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {folders.map((folder) => (
+                                    <tr key={folder.id}>
+                                        <td><NavLink to={"/folders/" + folder.id}>{folder.name}</NavLink></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td className="actions">
+                                            <button
+                                                className="btn btn-link"
+                                                onClick={
+                                                    () => {
+                                                        setHighlightedFolder(folder);
+                                                        setEditFolderModalVisible(true);
+                                                    }
+                                                }
+                                            >Edit</button>
+                                            <button
+                                                className="btn btn-link text-danger"
+                                                onClick={
+                                                    () => {
+                                                        setHighlightedFolder(folder);
+                                                        setDeleteFolderModalVisible(true);
+                                                    }
+                                                }
+                                            >Delete</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                <EditFolderModal
+                    folder={highlightedFolder}
+                    project={project}
+                    toggle={
+                        () => setEditFolderModalVisible(!editFolderModalVisible)
+                    }
+                    isOpen={editFolderModalVisible}
+                    onSaved={
+                        () => getProject()
+                    }
+                />
+
+                <ConfirmationModal
+                    isOpen={deleteFolderModalVisible}
+                    toggle={
+                        () => setDeleteFolderModalVisible(!deleteFolderModalVisible)
+                    }
+                    content={"Are you sure you want to delete the folder " + (
+                        highlightedFolder !== null ? highlightedFolder.name : ""
+                    ) + "?"}
+                    button="Delete"
+                    onConfirmed={deleteFolder}
+                />
+
+            </div>
 
         </div>
     );
